@@ -1,4 +1,7 @@
 
+using FoodApp.Menu.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace FoodApp.Menu
 {
     public class Program
@@ -13,6 +16,12 @@ namespace FoodApp.Menu
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //BD
+            var mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+
 
             var app = builder.Build();
 
