@@ -1,21 +1,14 @@
 ﻿namespace FoodApp.Menu.Models;
 
-public class Product
+public class Product : BaseModel
 {
-    private int            Id          { get; set; }
-                           
-    private string?        Name        { get; set; }
-                           
-    private string?        Description { get; set; }
-                                                 
-    private string?        Price       { get; set; }
+
+    public decimal?             Price       { get; set; } = 0;
                           
-    private IList<string>? Items       { get; set; }
+    public IList<Category>      Category    { get; set; } = [];
 
-    private Category?      Category    { get; set; }
+    public Product() { }
 
-    private int?           CategoryId  { get; set; }
-
-
+  
 
 }
