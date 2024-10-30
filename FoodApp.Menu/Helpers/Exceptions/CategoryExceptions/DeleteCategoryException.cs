@@ -1,10 +1,8 @@
-﻿using FoodApp.Menu.Models;
+﻿
+namespace FoodApp.Menu.Helpers.Exceptions.CategoryExceptions;
 
-namespace FoodApp.Menu.Helpers.Exceptions.CategoryExceptions
+public class DeleteCategoryException : Exception
 {
-    public class DeleteProductException : Exception
-    {
-        public DeleteProductException(int id)
-            : base($"Falha ao deletar a categoria de id: {id}") { }
-    }
+    public DeleteCategoryException(int id = -1, string name = "")
+        : base($"Falha ao deletar a categoria de id/name: {id}/{name}") { }
 }

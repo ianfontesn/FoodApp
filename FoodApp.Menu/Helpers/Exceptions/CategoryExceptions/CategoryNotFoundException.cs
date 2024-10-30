@@ -1,8 +1,8 @@
 ﻿namespace FoodApp.Menu.Helpers.Exceptions.CategoryExceptions
 {
-    public class ProductNotFoundException : Exception
+    public class CategoryNotFoundException : Exception
     {
-        public ProductNotFoundException(int id)
-            : base($"Categoria de id: {id} não encontrada.") { }
+        public CategoryNotFoundException(int id = -1, string name = "")
+            : base($"Categoria de id/name: {id}/{name} não encontrada.") { }
     }
 }
