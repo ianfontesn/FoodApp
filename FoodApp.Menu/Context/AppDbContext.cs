@@ -5,10 +5,7 @@ namespace FoodApp.Menu.Context
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
-        {
-            
-        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Category> Categories { get; set; }
         
@@ -55,9 +52,6 @@ namespace FoodApp.Menu.Context
                 
 
             });
-
-            
         }
-            
     }
 }
