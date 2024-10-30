@@ -17,6 +17,10 @@ namespace FoodApp.Menu.Context
             {
                 entity.HasKey(k => k.Id);
 
+                entity.Property(p => p.ReferenceCode)
+                .HasMaxLength(10)
+                .IsRequired();
+
                 entity.Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();
@@ -35,6 +39,10 @@ namespace FoodApp.Menu.Context
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(k => k.Id);
+
+                entity.Property(p => p.ReferenceCode)
+                .HasMaxLength(10)
+                .IsRequired();
 
                 entity.Property(p => p.Name)
                 .HasMaxLength(255)
