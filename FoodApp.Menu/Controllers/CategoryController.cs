@@ -56,6 +56,20 @@ public class CategoryController : ControllerBase
         }
     }
 
+    [HttpGet]
+    [Route("{referenceCode:int}")]
+    public async Task<ActionResult<CategoryDTO>> Get(int referenceCode)
+    {
+        try
+        {
+            return Ok(await _categoryService.FindById(id));
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
     [HttpPut]
     public async Task<ActionResult<CategoryDTO>> Update([FromBody] CategoryDTO dto)
     {
