@@ -6,9 +6,9 @@ namespace FoodApp.Menu.Repositories.Interfaces
     {
         Task<IList<Category>> GetAll();
 
-        Task<IList<Category>> GetCategorieProducts();
-
         Task<Category> GetById(int id);
+
+        Task<Category> GetByName(string name);
 
         Task<Category> Create(Category category);
 

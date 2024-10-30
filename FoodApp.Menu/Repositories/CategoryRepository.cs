@@ -1,21 +1,22 @@
 ﻿using FoodApp.Menu.Context;
-using FoodApp.Menu.Helpers.Exceptions.CategoryExceptions;
 using FoodApp.Menu.Models;
 using FoodApp.Menu.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using FoodApp.Menu.Helpers.Exceptions.CategoryExceptions;
 
 namespace FoodApp.Menu.Repositories;
 
 public class CategoryRepository : ICategoryRepository
 {
-
-
     private readonly AppDbContext _context;
 
     public CategoryRepository(AppDbContext context)
     {
         _context = context;
     }
+
+
+
 
     public async Task<Category> Create(Category category)
     {
@@ -44,15 +45,20 @@ public class CategoryRepository : ICategoryRepository
     {
         var category = await _context.Categories
             .FirstOrDefaultAsync(c => c.Id == id)
-            ?? throw new DeleteCategoryException(id);
+            ?? throw new CategoryNotFoundException(id: id);
 
         _context.Categories.Remove(category);
         return category;
     }
 
-    public async Task<IList<Category>> GetCategorieProducts()
+    public async Task<Category> GetByName(string name)
     {
-        throw new NotImplementedException();
+        var category = await _context.Categories
+                .FirstOrDefaultAsync(p => p.Name == name)
+                ?? throw new CategoryNotFoundException(name: name);
+
+        _context.Categories.Remove(category);
+        return category;
     }
 
     public async Task<Category> Update(Category category)
