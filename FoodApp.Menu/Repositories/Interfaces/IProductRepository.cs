@@ -4,9 +4,7 @@ namespace FoodApp.Menu.Repositories.Interfaces
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<Product>> GetAll();
-
-        Task<IEnumerable<Product>> GetProductCategorie();
+        Task<IList<Product>> GetAll();
 
         Task<Product> GetByName(string name);
 

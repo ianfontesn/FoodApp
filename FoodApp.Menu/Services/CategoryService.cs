@@ -2,6 +2,7 @@
 using FoodApp.Menu.DTOs;
 using FoodApp.Menu.Models;
 using FoodApp.Menu.Repositories.Interfaces;
+using FoodApp.Menu.Repositories.UnitOfWork;
 using FoodApp.Menu.Services.Interfaces;
 
 namespace FoodApp.Menu.Services

@@ -3,61 +3,40 @@ using FoodApp.Menu.Models;
 using FoodApp.Menu.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using FoodApp.Menu.Helpers.Exceptions.CategoryExceptions;
+using FoodApp.Menu.Repositories.UnitOfWork;
 
 namespace FoodApp.Menu.Repositories;
 
 public class CategoryRepository : ICategoryRepository
 {
     private readonly AppDbContext _context;
+    private readonly IUnityOfWork _unityOfWork;
 
-    public CategoryRepository(AppDbContext context)
+
+    public CategoryRepository(AppDbContext context, IUnityOfWork unityOfWork)
     {
         _context = context;
+        _unityOfWork = unityOfWork;
     }
-
-
 
 
     public async Task<Category> Create(Category category)
     {
         await _context.Categories.AddAsync(category);
+        _unityOfWork.Commit();
+
         return category;
     }
 
     public async Task<Category> Delete(int id)
     {
         var category = await _context.Categories
-            .FirstOrDefaultAsync(c => c.Id == id)
+            .FirstOrDefaultAsync(p => p.Id == id)
             ?? throw new CategoryNotFoundException(id);
 
         _context.Categories.Remove(category);
+        _unityOfWork.Commit();
 
-        return category;
-    }
-
-    public async Task<IList<Category>> GetAll()
-    {
-        var categoryList = await _context.Categories.ToListAsync();
-        return categoryList;
-    }
-
-    public async Task<Category> GetById(int id)
-    {
-        var category = await _context.Categories
-            .FirstOrDefaultAsync(c => c.Id == id)
-            ?? throw new CategoryNotFoundException(id: id);
-
-        _context.Categories.Remove(category);
-        return category;
-    }
-
-    public async Task<Category> GetByName(string name)
-    {
-        var category = await _context.Categories
-                .FirstOrDefaultAsync(p => p.Name == name)
-                ?? throw new CategoryNotFoundException(name: name);
-
-        _context.Categories.Remove(category);
         return category;
     }
 
@@ -68,8 +47,39 @@ public class CategoryRepository : ICategoryRepository
             ?? throw new CategoryNotFoundException(category.Id);
 
         _context.Categories.Entry(existingCategory).CurrentValues.SetValues(category);
+        _unityOfWork.Commit();
 
         return existingCategory;
 
     }
+
+    public async Task<IList<Category>> GetAll()
+    {
+        var categoryList = await _context.Categories.ToListAsync();
+        return categoryList;
+    }
+
+    public async Task<Category> GetById(int id)
+    {
+        return await _context.Categories
+            .FirstOrDefaultAsync(p => p.Id == id)
+            ?? throw new CategoryNotFoundException(id: id);
+    }
+
+    public async Task<Category> GetByName(string name)
+    {
+        return await _context.Categories
+                .FirstOrDefaultAsync(p => p.Name == name)
+                ?? throw new CategoryNotFoundException(name: name);
+    }
+
+    public async Task<Category> GetByReferenceCode(string referenceCode)
+    {
+        return await _context.Categories
+            .FirstOrDefaultAsync(p => p.ReferenceCode == referenceCode)
+            ?? throw new CategoryNotFoundException(name: referenceCode);
+
+    }
+
+
 }
