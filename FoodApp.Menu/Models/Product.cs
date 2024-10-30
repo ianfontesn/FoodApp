@@ -9,6 +9,4 @@ public class Product : BaseModel
 
     public Product() { }
 
-  
-
 }
