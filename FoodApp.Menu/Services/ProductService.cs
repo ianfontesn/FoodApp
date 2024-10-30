@@ -53,6 +53,5 @@ public class ProductService : IProductService
     {
         var entity = await _productRepository.Update(mapper.Map<Product>(productDTO));
         return mapper.Map<ProductDTO>(entity);
-
     }
 }
