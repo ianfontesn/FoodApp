@@ -3,6 +3,8 @@ using FoodApp.Menu.Context;
 using FoodApp.Menu.Repositories;
 using FoodApp.Menu.Repositories.Interfaces;
 using FoodApp.Menu.Repositories.UnitOfWork;
+using FoodApp.Menu.Services;
+using FoodApp.Menu.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodApp.Menu;
@@ -18,11 +20,13 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-        builder.Services.AddTransient<IProductRepository, ProductRepository>();
-        builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-        builder.Services.AddTransient<IUnityOfWork, UnitOfWork>();
-        
 
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+        builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IUnityOfWork, UnitOfWork>();
+        
 
         //BD
         var mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
