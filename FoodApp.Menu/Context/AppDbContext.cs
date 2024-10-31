@@ -21,6 +21,9 @@ namespace FoodApp.Menu.Context
                 .HasMaxLength(10)
                 .IsRequired();
 
+                entity.HasIndex(p => p.ReferenceCode)
+                .IsUnique();
+
                 entity.Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();
@@ -44,6 +47,9 @@ namespace FoodApp.Menu.Context
                 .HasMaxLength(10)
                 .IsRequired();
 
+                entity.HasIndex(p => p.ReferenceCode)
+               .IsUnique();
+
                 entity.Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();
@@ -58,7 +64,6 @@ namespace FoodApp.Menu.Context
                 .WithMany(p => p.Category)
                 .UsingEntity(entity => entity.ToTable("CategoryProduct"));
                 
-
             });
         }
     }
