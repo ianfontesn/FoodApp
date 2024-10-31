@@ -44,8 +44,12 @@ public class Program
 
         app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+        app.UseCors(options => options
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin());
 
+        app.UseAuthorization();
 
         app.MapControllers();
 
