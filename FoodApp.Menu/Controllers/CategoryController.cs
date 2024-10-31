@@ -44,7 +44,7 @@ public class CategoryController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
-    public async Task<ActionResult<CategoryDTO>> Get(int id)
+    public async Task<ActionResult<CategoryDTO>> GetById(int id)
     {
         try
         {
@@ -57,12 +57,12 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{referenceCode:int}")]
-    public async Task<ActionResult<CategoryDTO>> Get(int referenceCode)
+    [Route("{referenceCode}")]
+    public async Task<ActionResult<CategoryDTO>> FindByRefereceCode(string referenceCode)
     {
         try
         {
-            return Ok(await _categoryService.FindById(id));
+            return Ok(await _categoryService.FindByReferenceCode(referenceCode));
         }
         catch (Exception ex)
         {

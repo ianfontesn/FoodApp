@@ -18,6 +18,7 @@ namespace FoodApp.Menu.Services
             this.mapper = mapper;
         }
 
+
         public async Task<CategoryDTO> Delete(int id)
         {
             var entity = await _categoryRepository.Delete(id);
@@ -39,6 +40,12 @@ namespace FoodApp.Menu.Services
         public async Task<CategoryDTO> FindByName(string productName)
         {
             var entity = await _categoryRepository.GetByName(productName);
+            return mapper.Map<CategoryDTO>(entity);
+        }
+
+        public async Task<CategoryDTO> FindByReferenceCode(string referenceCode)
+        {
+            var entity = await _categoryRepository.GetByReferenceCode(referenceCode);
             return mapper.Map<CategoryDTO>(entity);
         }
 

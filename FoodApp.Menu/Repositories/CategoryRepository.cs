@@ -43,10 +43,11 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Category> Update(Category category)
     {
         var existingCategory = await _context.Categories
-            .FirstOrDefaultAsync(c => c.Id == category.Id)
-            ?? throw new CategoryNotFoundException(category.Id);
+            .FirstOrDefaultAsync(c => c.ReferenceCode == category.ReferenceCode)
+            ?? throw new CategoryNotFoundException(name: category.ReferenceCode!);
 
-        _context.Categories.Entry(existingCategory).CurrentValues.SetValues(category);
+        category.Id = existingCategory.Id;
+        _context.Entry(existingCategory).CurrentValues.SetValues(category);
         _unityOfWork.Commit();
 
         return existingCategory;
@@ -80,6 +81,5 @@ public class CategoryRepository : ICategoryRepository
             ?? throw new CategoryNotFoundException(name: referenceCode);
 
     }
-
 
 }

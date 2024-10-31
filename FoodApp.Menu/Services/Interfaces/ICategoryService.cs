@@ -14,6 +14,8 @@ namespace FoodApp.Menu.Services.Interfaces
 
         Task<CategoryDTO> FindByName(string categoryName);
 
+        Task<CategoryDTO> FindByReferenceCode(string referenceCode);
+
         Task<IList<CategoryDTO>> FindAll();
     }
 }
