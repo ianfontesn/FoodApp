@@ -13,7 +13,7 @@ namespace FoodApp.Menu.Repositories.UnitOfWork
 
         public void Commit()
         {
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Rollback()
