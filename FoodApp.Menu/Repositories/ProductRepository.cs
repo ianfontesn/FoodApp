@@ -38,13 +38,14 @@ namespace FoodApp.Menu.Repositories
             return Product;
         }
 
-        public async Task<Product> Update(Product Product)
+        public async Task<Product> Update(Product product)
         {
             var existingProduct = await _context.Products
-                .FirstOrDefaultAsync(c => c.Id == Product.Id)
-                ?? throw new ProductNotFoundException(Product.Id);
+                .FirstOrDefaultAsync(c => c.ReferenceCode == product.ReferenceCode)
+                ?? throw new ProductNotFoundException(name: product.ReferenceCode!);
 
-            _context.Products.Entry(existingProduct).CurrentValues.SetValues(Product);
+            product.Id = existingProduct.Id;
+            _context.Entry(existingProduct).CurrentValues.SetValues(product);
             _unityOfWork.Commit();
 
             return existingProduct;
@@ -60,7 +61,14 @@ namespace FoodApp.Menu.Repositories
         {
             return await _context.Products
                 .FirstOrDefaultAsync(c => c.Id == id)
-                ?? throw new DeleteProductException(id);
+                ?? throw new ProductNotFoundException(id);
+        }
+
+        public async Task<Product> GetByReferenceCode(string referenceCode)
+        {
+            return await _context.Products
+                .FirstOrDefaultAsync(c => c.ReferenceCode == referenceCode)
+                ?? throw new ProductNotFoundException(name: referenceCode);
         }
 
         public async Task<Product> GetByName(string name)
@@ -69,8 +77,6 @@ namespace FoodApp.Menu.Repositories
                 .FirstOrDefaultAsync(p => p.Name == name)
                 ?? throw new ProductNotFoundException(name: name);
         }
-
-       
 
     }
 }

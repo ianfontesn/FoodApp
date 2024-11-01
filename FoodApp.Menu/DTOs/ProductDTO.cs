@@ -1,5 +1,6 @@
 ﻿using FoodApp.Menu.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace FoodApp.Menu.DTOs
 {

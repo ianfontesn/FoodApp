@@ -10,10 +10,13 @@ namespace FoodApp.Menu.Repositories.Interfaces
 
         Task<Product> GetById(int id);
 
+        Task<Product> GetByReferenceCode(string referenceCode);
+
         Task<Product> Create(Product product);
 
         Task<Product> Update(Product product);
 
         Task<Product> Delete(int id);
+
     }
 }
