@@ -14,9 +14,11 @@ namespace FoodApp.Menu.Services.Interfaces
 
         Task<CategoryDTO> FindByName(string categoryName);
 
-        Task<CategoryDTO> FindByReferenceCode(string referenceCode);
+        Task<CategoryDTO> FindAllProductsWithThisCategory(CategoryDTO categoryDTO);
 
         Task<IList<CategoryDTO>> FindAll();
+
+        Task<CategoryDTO> UpdateProductsOnCategory(CategoryDTO categoryDTO);
 
     }
 }

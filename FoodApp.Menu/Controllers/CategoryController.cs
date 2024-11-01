@@ -57,17 +57,23 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{referenceCode}")]
-    public async Task<ActionResult<CategoryDTO>> FindByRefereceCode(string referenceCode)
+    [Route("CategoryProducts")]
+    public async Task<ActionResult<CategoryDTO>> GetCategoryProducts(CategoryDTO dto)
     {
         try
         {
-            return Ok(await _categoryService.FindByReferenceCode(referenceCode));
+            if (dto is null)
+            {
+                return BadRequest("DTO is null on Get Category Products");
+            }
+
+            return Ok(await _categoryService.FindAllProductsWithThisCategory(dto));
         }
         catch (Exception ex)
         {
             return StatusCode(500, ex.Message);
         }
+
     }
 
     [HttpPut]
@@ -81,6 +87,25 @@ public class CategoryController : ControllerBase
             }
 
             return Ok(await _categoryService.Update(dto));
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpPut]
+    [Route("UpdateCategoryProduct")]
+    public async Task<ActionResult<CategoryDTO>> UpdateProductsOnCategory([FromBody] CategoryDTO dto)
+    {
+        try
+        {
+            if (dto is null)
+            {
+                return BadRequest("DTO is null on Update Products On Category");
+            }
+
+            return Ok(await _categoryService.UpdateProductsOnCategory(dto));
         }
         catch (Exception ex)
         {

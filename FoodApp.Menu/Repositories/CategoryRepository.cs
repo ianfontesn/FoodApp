@@ -43,7 +43,7 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Category> Update(Category category)
     {
         var existingCategory = await _context.Categories
-            .FirstOrDefaultAsync(c => c.ReferenceCode == category.ReferenceCode)
+            .FirstOrDefaultAsync(c => c.Id == category.Id)
             ?? throw new CategoryNotFoundException(name: category.ReferenceCode!);
 
         category.Id = existingCategory.Id;
@@ -70,16 +70,14 @@ public class CategoryRepository : ICategoryRepository
     public async Task<Category> GetByName(string name)
     {
         return await _context.Categories
-                .FirstOrDefaultAsync(p => p.Name == name)
-                ?? throw new CategoryNotFoundException(name: name);
+            .FirstOrDefaultAsync(p => p.Name == name)
+            ?? throw new CategoryNotFoundException(name: name);
     }
 
-    public async Task<Category> GetByReferenceCode(string referenceCode)
+    public async Task<IList<Category>> GetCategoryProducts(Category category)
     {
         return await _context.Categories
-            .FirstOrDefaultAsync(p => p.ReferenceCode == referenceCode)
-            ?? throw new CategoryNotFoundException(name: referenceCode);
-
+            .Include(p => p.Products)
+            .ToListAsync();
     }
-
 }

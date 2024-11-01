@@ -1,13 +1,13 @@
 ﻿using FoodApp.Menu.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace FoodApp.Menu.DTOs
 {
     public class CategoryDTO
     {
-        [Required(ErrorMessage = "The reference code is required.")]
-        [MinLength(1), MaxLength(10)]
-        public string? ReferenceCode { get; set; } = String.Empty;
+        [Required(ErrorMessage = "The id is required.")]
+        public int Id { get; set; } = 0;
 
         [Required(ErrorMessage = "The name is required.")]
         [MinLength(3), MaxLength(200)]
@@ -19,6 +19,7 @@ namespace FoodApp.Menu.DTOs
         [MaxLength(200)]
         public string? ImageUrl { get; set; } = String.Empty;
 
+        [JsonIgnore]
         public IList<Product>? Products { get; set; }
     }
 }

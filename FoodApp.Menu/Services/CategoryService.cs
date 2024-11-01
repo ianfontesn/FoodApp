@@ -43,10 +43,10 @@ namespace FoodApp.Menu.Services
             return mapper.Map<CategoryDTO>(entity);
         }
 
-        public async Task<CategoryDTO> FindByReferenceCode(string referenceCode)
+        public async Task<CategoryDTO> FindAllProductsWithThisCategory(CategoryDTO categoryDTO)
         {
-            var entity = await _categoryRepository.GetByReferenceCode(referenceCode);
-            return mapper.Map<CategoryDTO>(entity);
+            var dto = mapper.Map<CategoryDTO>(await _categoryRepository.GetCategoryProducts(mapper.Map<Category>(categoryDTO)));
+            return dto ;
         }
 
         public async Task<CategoryDTO> Register(CategoryDTO categoryDTO)
@@ -60,6 +60,14 @@ namespace FoodApp.Menu.Services
         {
             var entity = await _categoryRepository.Update(mapper.Map<Category>(categoryDTO));
             return mapper.Map<CategoryDTO>(entity);
+        }
+
+        public async Task<CategoryDTO> UpdateProductsOnCategory(CategoryDTO categoryDTO)
+        {
+            var entity = await _categoryRepository.GetById(categoryDTO.Id);
+            entity.Products = categoryDTO.Products;
+            return mapper.Map<CategoryDTO> (await _categoryRepository.Update(entity));
+
         }
     }
 }
