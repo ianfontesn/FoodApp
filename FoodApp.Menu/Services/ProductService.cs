@@ -45,13 +45,18 @@ public class ProductService : IProductService
     public async Task<ProductDTO> Register(ProductDTO productDTO)
     {
         var entity = await _productRepository.Create(mapper.Map<Product>(productDTO));
-
         return mapper.Map<ProductDTO>(entity);
     }
 
     public async Task<ProductDTO> Update(ProductDTO productDTO)
     {
         var entity = await _productRepository.Update(mapper.Map<Product>(productDTO));
+        return mapper.Map<ProductDTO>(entity);
+    }
+
+    public async Task<ProductDTO> FindByReferenceCode(string referenceCode)
+    {
+        var entity = await _productRepository.GetByReferenceCode(referenceCode);
         return mapper.Map<ProductDTO>(entity);
     }
 }
