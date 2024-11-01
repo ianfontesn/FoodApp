@@ -54,9 +54,4 @@ public class ProductService : IProductService
         return mapper.Map<ProductDTO>(entity);
     }
 
-    public async Task<ProductDTO> FindByReferenceCode(string referenceCode)
-    {
-        var entity = await _productRepository.GetByReferenceCode(referenceCode);
-        return mapper.Map<ProductDTO>(entity);
-    }
 }

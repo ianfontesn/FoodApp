@@ -57,20 +57,6 @@ public class ProductController : ControllerBase
         }
     }
 
-    [HttpGet]
-    [Route("{referenceCode}")]
-    public async Task<ActionResult<ProductDTO>> FindByRefereceCode(string referenceCode)
-    {
-        try
-        {
-            return Ok(await _productService.FindByReferenceCode(referenceCode));
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, ex.Message);
-        }
-    }
-
     [HttpPut]
     public async Task<ActionResult<ProductDTO>> Update([FromBody] ProductDTO dto)
     {
@@ -88,4 +74,6 @@ public class ProductController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+
+
 }

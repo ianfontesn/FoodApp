@@ -64,13 +64,6 @@ namespace FoodApp.Menu.Repositories
                 ?? throw new ProductNotFoundException(id);
         }
 
-        public async Task<Product> GetByReferenceCode(string referenceCode)
-        {
-            return await _context.Products
-                .FirstOrDefaultAsync(c => c.ReferenceCode == referenceCode)
-                ?? throw new ProductNotFoundException(name: referenceCode);
-        }
-
         public async Task<Product> GetByName(string name)
         {
             return await _context.Products

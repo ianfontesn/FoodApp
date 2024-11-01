@@ -12,8 +12,6 @@ namespace FoodApp.Menu.Services.Interfaces
 
         Task<ProductDTO> FindById(int productId);
 
-        Task<ProductDTO> FindByReferenceCode(string referenceCode);
-
         Task<ProductDTO> FindByName(string productName);
 
         Task<IList<ProductDTO>> FindAll();

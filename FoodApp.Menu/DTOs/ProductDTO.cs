@@ -6,9 +6,8 @@ namespace FoodApp.Menu.DTOs
 {
     public class ProductDTO
     {
-        [Required(ErrorMessage = "The reference code is required.")]
-        [MinLength(1), MaxLength(10)]
-        public string? ReferenceCode { get; set; } = String.Empty;
+        [Required(ErrorMessage = "The id is required")]
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "The name is required.")]
         [MinLength(3), MaxLength(200)]
@@ -23,6 +22,7 @@ namespace FoodApp.Menu.DTOs
         [Required(ErrorMessage = "The price is required")]
         public decimal? Price { get; set; } = 0;
 
+        [JsonIgnore]
         public IList<Category> Category { get; set; } = [];
     }
 }
